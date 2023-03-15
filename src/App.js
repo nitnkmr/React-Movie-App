@@ -4,6 +4,8 @@ import './App.css';
 import CardContainer from './Component/CardContainer';
 import Detailes from './Component/Detailes';
 import Navbar from './Component/Navbar';
+import Search from './Component/Search';
+
 
 function App() {
   const [search, setsearch] = useState("movie")
@@ -11,6 +13,8 @@ function App() {
   const [day, setday] = useState("day")
   const [mData, setmData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [valid1,setValid1]=useState(false)
+
   const [loadingDeatils, setLoadingDeatils] = useState(false)
   useEffect(()=>{
     getData(search,day);
@@ -23,21 +27,23 @@ function App() {
     setmData(data)
     setLoading(true);
   }
-  function getDetails(i){
+  function getDetails(i,em){
     setid(i)
+    setValid1(em);
     setLoadingDeatils(true)
   }
  
   return (
     <div className="App">
       <Routes>
+        <Route path='/search' element={<Search getDetails={getDetails} e={id} key={id}/>}/>
         <Route path='/' element={""}/>
-        <Route path='/Details' element={<Detailes id={id} loadingDeatils={loadingDeatils} search={search} setLoadingDeatils={setLoadingDeatils}/>}/>
+        <Route path='/Details' element={<Detailes id={id} valid1={valid1} loadingDeatils={loadingDeatils} search={search} setLoadingDeatils={setLoadingDeatils}/>}/>
       </Routes>
       <div className="container">
         <Navbar search={search} setsearch={setsearch} setday={setday} day={day} />
         <div className="cardholder">
-        {loading&&mData.results.map((e,i)=><CardContainer getDetails={getDetails}e={e} key={i}/>)}
+        {loading&&mData.results.map((e,i)=><CardContainer getDetails={getDetails} e={e} key={i}/>)}
         </div>
       </div>
     </div>

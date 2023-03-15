@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import "./detailing.css"
-const Detailes = ({id,loadingDeatils,setLoadingDeatils,search}) => {
+const Detailes = ({id,loadingDeatils,setLoadingDeatils,search,getDetails,e ,valid1=false}) => {
   const [first, setfirst] = useState({})
-  const [first1, setfirst1] = useState(false)
+  // const [first1, setfirst1] = useState(false)
   useEffect(()=>{
 
     getDetails(id,search);
-  },[id])
+  },[id,search])
   async function getDetails(movieid){
   const res=await fetch(`https://api.themoviedb.org/3/${search}/${movieid}?api_key=05115a04b06d974d0210b99b0228bd44`);
   const data=await res.json();
   setfirst(data)
-  setfirst1(true)
   console.log(data);
   }
   return (
     <div className='deContainer'>
       <div className="poster" style={{backgroundImage:`url("https://image.tmdb.org/t/p/w1280${first.backdrop_path}")`}}>
-        <span className="back"><Link to={"/"}>X</Link></span>
+        <span className="back">{valid1?<Link to={"/Search"}>X</Link>:<Link to={"/"}>X</Link>}</span>
         <div className="blurring">
           <div className="profile">
             <div className="img">

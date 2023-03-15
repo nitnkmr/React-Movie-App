@@ -9,7 +9,7 @@ const Navbar = ({search,setsearch, setday,day }) => {
         <div className="heading"><h1>Movie Search</h1></div>
         <div className="navOption">
           <ul>
-            <li>Search</li>
+            <li><Link to={"/search"}>Search</Link></li>
             <li><Link to={"/"}>Home</Link> </li>
           </ul>
         </div>
