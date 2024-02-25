@@ -37,15 +37,18 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/search' element={<Search getDetails={getDetails} e={id} key={id}/>}/>
-        <Route path='/' element={""}/>
-        <Route path='/Details' element={<Detailes id={id} valid1={valid1} loadingDeatils={loadingDeatils} search={search} setLoadingDeatils={setLoadingDeatils}/>}/>
-      </Routes>
-      <div className="container">
+        <Route path='/' element={
+          <div className="container">
         <Navbar search={search} setsearch={setsearch} setday={setday} day={day} />
         <div className="cardholder">
         {loading&&mData.results.map((e,i)=><CardContainer getDetails={getDetails} e={e} key={i}/>)}
         </div>
       </div>
+
+        }/>
+        <Route path='/Details' element={<Detailes id={id} valid1={valid1} loadingDeatils={loadingDeatils} search={search} setLoadingDeatils={setLoadingDeatils}/>}/>
+      </Routes>
+      
     </div>
   );
 }

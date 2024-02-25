@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import "./detailing.css"
-const Detailes = ({id,loadingDeatils,setLoadingDeatils,search,getDetails,e ,valid1=false}) => {
+const Detailes = ({ id, loadingDeatils, setLoadingDeatils, search, getDetails, e, valid1 = false }) => {
   const [first, setfirst] = useState({})
   // const [first1, setfirst1] = useState(false)
-  useEffect(()=>{
+  useEffect(() => {
 
-    getDetails(id,search);
-  },[id,search])
-  async function getDetails(movieid){
-  const res=await fetch(`https://api.themoviedb.org/3/${search}/${movieid}?api_key=05115a04b06d974d0210b99b0228bd44`);
-  const data=await res.json();
-  setfirst(data)
-  console.log(data);
+    getDetails(id, search);
+  }, [id, search])
+  async function getDetails(movieid) {
+    const res = await fetch(`https://api.themoviedb.org/3/${search}/${movieid}?api_key=05115a04b06d974d0210b99b0228bd44`);
+    const data = await res.json();
+    setfirst(data)
+    console.log(data);
   }
   return (
     <div className='deContainer'>
-      <div className="poster" style={{backgroundImage:`url("https://image.tmdb.org/t/p/w1280${first.backdrop_path}")`}}>
-        <span className="back">{valid1?<Link to={"/Search"}>X</Link>:<Link to={"/"}>X</Link>}</span>
+      <div className="poster" style={{ backgroundImage: `url("https://image.tmdb.org/t/p/w1280${first.backdrop_path}")` }}>
+        <span className="back">{valid1 ? <Link to={"/Search"}>X</Link> : <Link to={"/"}>X</Link>}</span>
         <div className="blurring">
           <div className="profile">
             <div className="img">
-              <img src={"https://image.tmdb.org/t/p/w154"+first.poster_path} alt="" />
+              <img src={"https://image.tmdb.org/t/p/w154" + first.poster_path} alt="" />
             </div>
-            <div className="title">{first.original_title}</div>
+            <div className="title">
+              <h4>{search == "movie" ? <span>{first.original_title}</span> : <span>{first.original_name}</span> }</h4>
+              <div>{search != "movie" ? <span>{"Total Season : " + first.number_of_seasons}</span> : <span></span> }
+              </div>
+              <div>{search != "movie" ? <span>{"Total Season : " + first.number_of_episodes}</span> : <span></span> }
+              </div>
+            </div>
           </div>
           <div className="information">
             <div className="budget">Budget : {first.budget} $</div>
@@ -34,7 +40,7 @@ const Detailes = ({id,loadingDeatils,setLoadingDeatils,search,getDetails,e ,vali
             <div className="storyline">{first.overview}</div>
           </div>
         </div>
-        </div>  
+      </div>
       <div className="casting"></div>
     </div>
   )

@@ -12,7 +12,7 @@ const Search = ({getDetails,e}) => {
         getmovie(category,search)
         console.log(data);
         
-    },[valid])
+    },[valid,category,search])
     function onhello(){
         
         setValid(!valid)
@@ -27,7 +27,7 @@ const Search = ({getDetails,e}) => {
         <div className="container3">
             <div className="navbar">
                 <div className="heading">
-                    <h3>Movie Search</h3>
+                    <h1>Movie Search</h1>
                 </div>
                 <div className="navOption">
                     <ul>
@@ -49,9 +49,10 @@ const Search = ({getDetails,e}) => {
                 {
                 (valid)? data.results.map((ele,i)=><Link to={"/Details"} onClick={()=>getDetails(ele.id,valid1)}>
                 <div className="card" key={i}>
-                <div className="circle">${(ele.vote_average * 10).toFixed(1)}<span>%</span></div>
+                <div className="circle">{(ele.vote_average * 10).toFixed(1)}<span>%</span></div>
                 <img src={"https://image.tmdb.org/t/p/w154"+ele.poster_path} alt="img" />
-                <div><h2>{ele.title}</h2>
+                <div><h4>{ele.title}</h4>
+                    <h4>{ele.original_name}</h4>
                     <p>Sci-fi || romantic</p>
                     <h3>{ele.release_date}{ele.first_air_date}</h3>
                 </div>
